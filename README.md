@@ -165,9 +165,7 @@ void step()
 }
 ```
 
-WiFi version:
-
-Simply replace the MicroNet and UDP declaration with their WiFi versions:
+If you are using wi-fi instead of ethernet, simply replace the MicroNet and UDP declarations with their wi-fi versions:
 
 ```cpp
 MicroNetWiFi myMicroNet;
