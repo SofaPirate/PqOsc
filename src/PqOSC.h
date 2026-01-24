@@ -75,7 +75,7 @@ namespace pq
 
         // ----------------------------------------------------------------------- |
         // handleOSCMessageCallback ---------------------------------------------- |
-        static void handleOSCMessageCallback(MicroOsc & source, MicroOscMessage &message);
+        static void handleOSCMessageCallback(MicroOscMessage &message);
         // ---------------------------------------------------------------------- |
 
     private:

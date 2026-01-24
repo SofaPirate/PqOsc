@@ -7,14 +7,14 @@ HybridArrayList<OscIn*, PLAQUETTE_MAX_UNITS>& OscIn::oscInList() {
   return instance;
 }
 
-void OscIn::handleOSCMessageCallback(MicroOsc & source, MicroOscMessage &message)
+void OscIn::handleOSCMessageCallback(MicroOscMessage &message)
 {
     HybridArrayList<OscIn*, PLAQUETTE_MAX_UNITS>& oscInputs = oscInList();
     for (size_t i = 0; i != oscInputs.size(); i++)
     {
         OscIn *oscIn = oscInputs[i];
 
-        if (&source == &oscIn->_microOsc && message.checkOscAddress(oscIn->address()))
+        if (message.checkSource(&oscIn->_microOsc) && message.checkOscAddress(oscIn->address()))
         {
             // Get typetag.
             char typeTag;
