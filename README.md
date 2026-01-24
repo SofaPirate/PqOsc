@@ -104,14 +104,19 @@ The microcontroller connects to the network with the name "plaquette" and it loo
 #include <Plaquette.h>
 #include <PqOsc.h>
 #include <MicroNetEthernet.h>
+
+const char* remoteName = "m3-air"; // change for your own local DNS name
+const unsigned int receivePort = 8888;
+const unsigned int sendPort = 7777;
+
+// MicroNet server over ethernet
 MicroNetEthernet myMicroNet(MicroNetEthernet::Configuration::ATOM_POE_WITH_ATOM_LITE);
 
+// UDP over ethernet
 EthernetUDP myUdp;
-const unsigned int kMyReceivePort = 8888;
-const unsigned int kMySendPort = 7777;
 
 // Create the input and output node
-OscUdp<128> myOsc(myUdp);
+OscUdp<128> myOsc(myUdp, receivePort);
   
 // Link an input address to the node
 OscIn oscInAlpha(myOsc, "/alpha");
@@ -119,18 +124,16 @@ OscIn oscInAlpha(myOsc, "/alpha");
 // Link an output address to the node
 OscOut oscOutBeta(myOsc, "/beta");
 
-// Used to slow down message transmission
-Metronome ticker(0.1f); // 10 Hz, each 100 milliseconds, 10x per second
-
-// Serial monitor.
+// Serial monitor
 Monitor monitor(115200);
+
+void prepare() 
+{
+  myMicroNet.begin("plaquette");
+}
 
 void begin()
 {
-  myMicroNet.begin("plaquette");
-
-  myUdp.begin(kMyReceivePort);
-
   println();
   print("My IP: ");
   print(myMicroNet.getIP());
@@ -139,11 +142,12 @@ void begin()
   print(myMicroNet.getName());
   println();
 
-  print("Looking for: m3-air");
+  print("Looking for: ");
+  println(remoteName);
   println();
 
-  IPAddress destinationIp = myMicroNet.resolveName("m3-air");
-  myOsc.setDestination(destinationIp , kMySendPort);
+  IPAddress destinationIp = myMicroNet.resolveName(remoteName);
+  myOsc.setDestination(destinationIp, sendPort);
 
   print("Found it at IP: ");
   print(destinationIp);
@@ -154,11 +158,21 @@ void step()
 {
   myMicroNet.update();
 
-  if (ticker)
+  if (oscInAlpha.updated())
   {
     oscInAlpha >> oscOutBeta;
   }
 }
+```
+
+WiFi version:
+
+Simply replace the MicroNet and UDP declaration with their WiFi versions:
+
+```cpp
+MicroNetWiFi myMicroNet;
+
+WiFiUDP myUdp;
 ```
 
 ### Type support
