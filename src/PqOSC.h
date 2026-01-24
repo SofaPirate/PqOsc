@@ -14,11 +14,10 @@ namespace pq
     // OscIn class ----------------------------------------------------------- |
     class OscIn : public Unit
     {
-    private:
+    protected:
         // Shared static container containing all units. Static because it is shared between all OscIn units.
         static HybridArrayList<OscIn*, PLAQUETTE_MAX_UNITS>& oscInList();
 
-    private:
         const char *_address;
         float _value;
         MicroOsc &_microOsc;
@@ -142,31 +141,43 @@ namespace pq
     template <const size_t MICRO_OSC_IN_SIZE>
     class OscUdp : public Unit, public MicroOscUdp<MICRO_OSC_IN_SIZE>
     {
-    private:
     protected:
+        unsigned int _receivePort = 0;
 
+    protected:
         void step() override
         {
             this->onOscMessageReceived(OscIn::handleOSCMessageCallback);
         }
 
-        void begin()
+        void begin() override
         {
-        }
-
-        float get()
-        {
-            return 0;
+            if (_receivePort)
+               this->udp->begin(_receivePort);
         }
 
     public:
         OscUdp(UDP &udp, Engine &engine = Engine::primary())
-            : Unit(engine), MicroOscUdp<MICRO_OSC_IN_SIZE>(udp)
+            : OscUdp(udp, 0, engine)
+        {
+        }
+
+        OscUdp(UDP &udp, unsigned int receivePort, Engine &engine = Engine::primary())
+            : Unit(engine), 
+              MicroOscUdp<MICRO_OSC_IN_SIZE>(udp), 
+              _receivePort(receivePort)
         {
         }
 
         OscUdp(UDP &udp, IPAddress destinationIp, unsigned int destinationPort, Engine &engine = Engine::primary())
-            : Unit(engine), MicroOscUdp<MICRO_OSC_IN_SIZE>(udp, destinationIp, destinationPort)
+            : OscUdp(udp, 0, destinationIp, destinationPort, engine)
+        {
+        }
+
+        OscUdp(UDP &udp, unsigned int receivePort, IPAddress destinationIp, unsigned int destinationPort, Engine &engine = Engine::primary())
+            : Unit(engine), 
+              MicroOscUdp<MICRO_OSC_IN_SIZE>(udp, destinationIp, destinationPort),
+              _receivePort(receivePort)
         {
         }
     };
@@ -175,7 +186,7 @@ namespace pq
     // OscOut class ---------------------------------------------------------- |
     class OscOut : public Unit
     {
-    private:
+    protected:
         MicroOsc &_microOsc;
         const char *_address;
         float _value;
