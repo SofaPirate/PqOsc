@@ -105,7 +105,7 @@ The microcontroller connects to the network with the name "plaquette" and it loo
 #include <PqOsc.h>
 #include <MicroNetEthernet.h>
 
-const char* remoteName = "m3-air"; // change for your own local DNS name
+const char* remoteName = "m3-air"; // change for your own local hostname
 const unsigned int receivePort = 8888;
 const unsigned int sendPort = 7777;
 

@@ -1,12 +1,14 @@
 /**
- * OscSlipEcho
+ * OscSlipCallback
  *
- * Echoes the value of the OSC message received on "/alpha" to "/beta".
- * (i.e., /alpha -> Arduino -> /beta)
+ * Uses the onUpdate() callback to respond to incoming OSC messages.
+ * This event-driven approach uses only begin() with no step() function.
+ *
+ * Echoes the value received on "/alpha" to "/beta".
  *
  * Test with the Pure Data patch included in the extras directory.
  *
- * Created in 2025 by Thomas O. Fredericks
+ * Created in 2025 by Sofian Audry
  */
 #include <Plaquette.h>
 #include <PqOsc.h>
@@ -20,9 +22,8 @@ OscIn oscInAlpha(oscSlip, "/alpha");
 // Link an output address to the node.
 OscOut oscOutBeta(oscSlip, "/beta");
 
-void step() {
-  if (oscInAlpha.updated()) {
-    // Send message only when new message received.
+void begin() {
+  oscInAlpha.onUpdate([]() {
     oscInAlpha >> oscOutBeta;
-  }
+  });
 }

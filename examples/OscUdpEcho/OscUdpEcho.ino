@@ -8,7 +8,7 @@
  * - Requires a board with Ethernet or WiFi capability.
  *
  * Uses the MicroNet library for networking.
- * Change "remoteName" to match your destination device's local DNS name.
+ * Change "remoteName" to match your destination device's local hostname.
  * Uncomment USE_WIFI to use WiFi instead of Ethernet.
  *
  * Created in 2025 by Thomas O. Fredericks
@@ -29,7 +29,7 @@
   EthernetUDP myUdp;
 #endif
 
-const char* remoteName = "m3-air"; // change for your own local DNS name
+const char* remoteName = "m3-air"; // change for your own local hostname
 const unsigned int receivePort = 8888;
 const unsigned int sendPort = 7777;
 
