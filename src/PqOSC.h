@@ -57,7 +57,7 @@ namespace pq
         }
 
         OscIn(MicroOsc &osc, const char *address, Engine &engine = Engine::primary())
-            : Unit(engine), _microOsc(osc), _address(address), _valueUpdated(false)
+            : Unit(engine), _microOsc(osc), _address(address), _value(0), _valueUpdated(false)
         {
             oscInList().add(this);
         }
@@ -200,8 +200,8 @@ namespace pq
             : OscOut(osc, address, 'f', engine)
         {}
 
-        OscOut(MicroOsc &osc, const char *address, char typeTag, Engine& engine = Engine::primary()) 
-            : Unit(engine), _microOsc(osc), _address(address), _typeTag(typeTag), _needToSend(false)
+        OscOut(MicroOsc &osc, const char *address, char typeTag, Engine& engine = Engine::primary())
+            : Unit(engine), _microOsc(osc), _address(address), _value(0), _typeTag(typeTag), _needToSend(false)
         {}
 
         float put(float f) override
