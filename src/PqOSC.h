@@ -51,7 +51,7 @@ namespace pq
         }
 
     public:
-        const char *address()
+        const char *address() const
         {
             return _address;
         }
@@ -68,7 +68,7 @@ namespace pq
         }
 
         /// Returns true iff value was changed.
-        virtual bool updated() { return _valueUpdated; }
+        virtual bool updated() const { return _valueUpdated; }
 
         /// Registers event callback on finish event.
         virtual void onUpdate(EventCallback callback) { onEvent(callback, EVENT_UPDATE); }
