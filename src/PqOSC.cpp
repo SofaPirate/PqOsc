@@ -98,7 +98,7 @@ void OscOut::_sendMessage() {
         case 's': {
             char str[32];
             sprintf(str, "%f", _value);
-            _microOsc.sendString(_address, (const char *) &_value); 
+            _microOsc.sendString(_address, str);
             break;
         }
 
