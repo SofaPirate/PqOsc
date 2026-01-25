@@ -1,5 +1,5 @@
-#ifndef __PQ_OSC___
-#define __PQ_OSC___
+#ifndef PQ_OSC_H_
+#define PQ_OSC_H_
 
 #include <PqCore.h>
 #include <MicroOsc.h>
