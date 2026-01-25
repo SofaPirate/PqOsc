@@ -111,11 +111,6 @@ namespace pq
             }
         }
 
-        float get() override
-        {
-            return 0;
-        }
-
     public:
         // Constructor with default value for _iic_address
         OscSlip(Stream &stream, Engine &engine = Engine::primary())
