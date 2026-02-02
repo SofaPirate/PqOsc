@@ -4,9 +4,6 @@ Open Sound Control (OSC) library for [Plaquette](https://github.com/SofaPirate/P
 
 GitHub repo : https://github.com/SofaPirate/PqOsc
 
-> [!CAUTION]
-> Work in progress, API will change!
-
 To receive the data, your software must be able to process OSC SLIP. Here are a few demonstrations that show how to receive the OSC Slip data in Pure Data and Max (in French):
 - [OSC SLIP dans Pd @ AidE](https://t-o-f.info/aide/#/pd/osc/slip/)
 - [Pd : Relais OSC SLIP ⇄ UDP @ AidE](https://t-o-f.info/aide/#/pd/osc/relais/)
