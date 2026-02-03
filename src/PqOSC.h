@@ -100,7 +100,7 @@ public:
    * Routes messages to matching OscIn instances.
    * @param message the received OSC message
    */
-  static void handleOSCMessageCallback(MicroOscMessage &message);
+  static void handleOSCMessageCallback(MicroOsc& source, MicroOscMessage &message);
 
 private:
   // Disabled: OscIn is input-only.

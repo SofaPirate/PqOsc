@@ -75,7 +75,7 @@ float OscIn::put(float value) {
   return value;
 }
 
-void OscIn::handleOSCMessageCallback(MicroOscMessage &message)
+void OscIn::handleOSCMessageCallback(MicroOsc& source, MicroOscMessage &message)
 {
   HybridArrayList<OscIn*, PLAQUETTE_MAX_UNITS>& oscInputs = oscInList();
   for (size_t i = 0; i < oscInputs.size(); i++)
@@ -83,7 +83,7 @@ void OscIn::handleOSCMessageCallback(MicroOscMessage &message)
     OscIn *oscIn = oscInputs[i];
 
     // Check if message matches this OscIn's source and address.
-    if (message.checkSource(&oscIn->_microOsc) && message.checkOscAddress(oscIn->address()))
+    if (&oscIn->_microOsc == &source && message.checkOscAddress(oscIn->address()))
     {
       // Get type tag.
       char typeTag;
