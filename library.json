@@ -1,6 +1,6 @@
 {
   "name": "PqOSC",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Open Sound Control (OSC) library for Plaquette",
   "keywords": "communication",
   "repository":
