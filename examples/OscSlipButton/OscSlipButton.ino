@@ -24,6 +24,11 @@ OscSlip<128> oscSlip(115200);
 // ie. 1 for true, 0 for false
 OscOut oscOutButton(oscSlip, "/button", 'i');
 
+void begin() {
+  // Debounce button.
+  button.debounce();
+}
+
 void step() {
   // Send button state when changed.
   if (button.changed()) {
