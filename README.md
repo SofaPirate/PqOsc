@@ -179,7 +179,19 @@ For example, this will send the value as an integer:
 OscOut oscOutput(oscSlip, "/output", 'i');
 ```
 
-Input type in ``OscIn`` are figured out at reception and are converted to float.
+Input types in `OscIn` are detected at reception and converted to float.
 
-Please refer to [MicroOSC](https://github.com/thomasfredericks/MicroOsc/) for 
-a complete reference on supported types.
+Supported OSC type tags:
+
+| Tag | Type | Notes |
+|-----|------|-------|
+| `'f'` | float32 | default |
+| `'i'` | int32 | |
+| `'d'` | float64 (double) | cast to float on receive |
+| `'b'` | blob | raw bytes; float extracted if blob size matches |
+| `'T'` | true | received as 1.0 |
+| `'F'` | false | received as 0.0 |
+| `'N'` | nil | received as 1.0 |
+| `'I'` | impulse | received as 1.0 |
+
+> **Note:** The string type (`'s'`) is not supported in order to minimize flash memory usage.
