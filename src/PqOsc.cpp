@@ -112,9 +112,7 @@ void OscIn::handleOSCMessageCallback(MicroOsc& source, MicroOscMessage &message)
           break;
         }
 
-        case 's': // string (parse as float)
-          value = atof(message.nextAsString());
-          break;
+
 
         case 'N': // nil
         case 'I': // impulse
@@ -186,12 +184,6 @@ void OscOut::_sendMessage() {
       _microOsc.sendBlob(_address, (unsigned char *) &_value, sizeof(_value));
       break;
 
-    case 's': { // string
-      char str[32];
-      sprintf(str, "%f", _value);
-      _microOsc.sendString(_address, str);
-      break;
-    }
 
     // Trigger types.
     case 'T': // true

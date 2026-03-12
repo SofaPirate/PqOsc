@@ -273,7 +273,7 @@ protected:
   // The value to send.
   float _value;
 
-  // OSC type tag ('f', 'i', 'd', etc.).
+  // OSC type tag ('f', 'i', 'd', 'b', 'T', 'F', 'N', 'I').
   char _typeTag;
 
   // Flag indicating a message needs to be sent.
@@ -293,8 +293,7 @@ public:
    * @param osc reference to the OSC transport (OscSlip or OscUdp)
    * @param address the OSC address to send to (e.g., "/led")
    * @param typeTag OSC type tag: 'f' (float), 'i' (int), 'd' (double),
-   *                'b' (blob), 's' (string), 'T' (true), 'F' (false),
-   *                'N' (nil), 'I' (impulse)
+   *                'b' (blob), 'T' (true), 'F' (false), 'N' (nil), 'I' (impulse)
    * @param engine the engine running this unit
    */
   OscOut(MicroOsc& osc, const char *address, char typeTag, Engine& engine = Engine::primary());
